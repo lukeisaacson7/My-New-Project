@@ -1,80 +1,54 @@
-
-<!-- This is the markdown template for the final project of the Building AI course, 
-created by Reaktor Innovations and University of Helsinki. 
-Copy the template, paste it to your GitHub README and edit! -->
-
-# Coding with AI
+# Demystifying the Neuron: Beyond the AI Media Myth
 
 Final project for the Building AI course
 
 ## Summary
 
-Describe briefly in 2-3 sentences what your project is about. About 250 characters is a nice length! 
+This project explores the mathematical reality of neural networks, shifting focus from sci-fi media tropes to actual algorithmic mechanics. By breaking down and manually calculating forward propagation (weights, linear combinations, and sigmoid activations), it demonstrates how simple functions drive complex classifications.
 
 
 ## Background
 
-Which problems does your idea solve? How common or frequent is this problem? What is your personal motivation? Why is this topic important or interesting?
-
-This is how you make a list, if you need one:
-* problem 1
-* problem 2
-* etc.
+When people search for "AI," online results are flooded with images of glowing human-like robots or metallic brains. This creates a massive misconception about what artificial intelligence actually is. 
+* **The Problem:** The public view of AI is disconnected from the reality of data science, leading to either inflated fear or unrealistic expectations.
+* **Motivation:** My goal is to ground this topic by demonstrating that AI isn't magic or a sentient robot—it's foundational math, background computer systems, and data processing.
+* **Importance:** Understanding the building blocks (like basic regressions and activation functions) is essential for anyone wanting to responsibly build, critique, or use modern technology.
 
 
 ## How is it used?
 
-Describe the process of using the solution. In what kind situations is the solution needed (environment, time, etc.)? Who are the users, what kinds of needs should be taken into account?
+This project serves as an educational framework and a proof-of-concept for manual neural network tracking. It is designed for students, educators, or tech enthusiasts who want to look inside the "black box" of a hidden layer node.
 
-Images will make your README look nice!
-Once you upload an image to your repository, you can link link to it like this (replace the URL with file path, if you've uploaded an image to Github.)
-![Cat](https://upload.wikimedia.org/wikipedia/commons/5/5e/Sleeping_cat_on_her_back.jpg)
+For example, when a network needs to classify data—such as predicting whether an animal is a dog or a cat based on height, weight, and length—this model shows exactly how raw features are transformed into actual probabilities.
 
-If you need to resize images, you have to use an HTML tag, like this:
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Sleeping_cat_on_her_back.jpg" width="300">
+Here is a look at the simple 3-layer architecture being modeled:
+![Neural Network Diagram](https://images.unsplash.com/photo-1527474305487-b87b222841cc?q=80&w=600&auto=format&fit=crop)
 
-This is how you create code examples:
-```
+### Example: Manual Forward Propagation Challenge
+Below is the core Python logic used to replicate the manual calculation I performed on a hidden layer node ($a_1$) processing three distinct inputs:
+
+```python
+import math
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
 def main():
-   countries = ['Denmark', 'Finland', 'Iceland', 'Norway', 'Sweden']
-   pop = [5615000, 5439000, 324000, 5080000, 9609000]   # not actually needed in this exercise...
-   fishers = [1891, 2652, 3800, 11611, 1757]
+    # 3 Input nodes
+    inputs = [1.3, -2.2, 9.5]
+    # Weights connecting to hidden node a1
+    weights = [-0.76, 0.22, 0.56]
+    
+    # 1. Calculate the linear combination (weighted sum)
+    linear_combination = sum(i * w for i, w in zip(inputs, weights))
+    
+    # 2. Pass through the activation function
+    identity_output = linear_combination
+    probability_output = sigmoid(linear_combination)
+    
+    print(f"Linear Combination (Pre-activation): {linear_combination:.3f}")
+    print(f"Output with Identity Function: {identity_output:.3f}")
+    print(f"Output with Sigmoid Function (Probability): {probability_output:.2f}")
 
-   totPop = sum(pop)
-   totFish = sum(fishers)
-
-   # write your solution here
-
-   for i in range(len(countries)):
-      print("%s %.2f%%" % (countries[i], 100.0))    # current just prints 100%
-
-main()
-```
-
-
-## Data sources and AI methods
-Where does your data come from? Do you collect it yourself or do you use data collected by someone else?
-If you need to use links, here's an example:
-[Twitter API](https://developer.twitter.com/en/docs)
-
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
-## Challenges
-
-What does your project _not_ solve? Which limitations and ethical considerations should be taken into account when deploying a solution like this?
-
-## What next?
-
-How could your project grow and become something even more? What kind of skills, what kind of assistance would you  need to move on? 
-
-
-## Acknowledgments
-
-* list here the sources of inspiration 
-* do not use code, images, data etc. from others without permission
-* when you have permission to use other people's materials, always mention the original creator and the open source / Creative Commons licence they've used
-  <br>For example: [Sleeping Cat on Her Back by Umberto Salvagnin](https://commons.wikimedia.org/wiki/File:Sleeping_cat_on_her_back.jpg#filelinks) / [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
-* etc
+if __name__ == "__main__":
+    main()
